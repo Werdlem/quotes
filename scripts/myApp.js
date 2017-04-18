@@ -3,11 +3,11 @@ app.controller('styleController', ['$scope', function($scope){
 	$scope.styles = [{
 	type: "0201",
 	height: 1,
-	depth: 1,
+	width: 1,
 	length: 2,
 	breadth: 2,
-	trimWidth: 15,
-	trimLength: 40,
+	trimWidth: 9,
+	trimLength: 41,
 },
 {
 	type: "0203",
@@ -15,7 +15,8 @@ app.controller('styleController', ['$scope', function($scope){
 	depth: "2",
 	length: "2",
 	breadth: "2",
-	trim: "40"
+	trimWidth: 9,
+	trimLength: 40,
 }
 ];
 $scope.grades=[{
