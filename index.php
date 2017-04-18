@@ -28,18 +28,23 @@
 <h3>Grade: {{selectedFlute.flute}}{{selectedGrade.type}}{{selectedLiner.grade}} </h3>
 <input type="hidden" name="details" value="{{selectedGrade.type}}/{{selectedFlute.flute}}/{{selectedLiner.grade}}">
 
-<h3>Blank Size: {{height * selectedStyle.height ++ breadth * selectedStyle.width ++ selectedStyle.trimWidth}} X 
-{{length * selectedStyle.length ++ breadth * selectedStyle.breadth ++ selectedStyle.trimLength}}</h3>
+<h3>Blank Size: <span>{{height * selectedStyle.height ++ breadth * selectedStyle.width ++ selectedStyle.trimWidth}} X 
+{{length * selectedStyle.length ++ breadth * selectedStyle.breadth ++ selectedStyle.trimLength}}</span></h3>
 
-<label>{{height * selectedStyle.height ++ breadth * selectedStyle.width * length * selectedStyle.length ++ breadth * selectedStyle.breadth / 1000000}}</label>
-
-
-<label>{{selectedtrimWidth ++ height * selectedStyle.height ++ breadth * selectedStyle.width * length * selectedStyle.length ++ breadth * selectedStyle.breadth ++ selectedStyle.trimLength}} </label>
-
-
+<input type="text" id="sWidth" oninput="calculate()" value="{{height * selectedStyle.height ++ breadth * selectedStyle.width ++ selectedStyle.trimWidth}}">
+<input type="text" id="sLength" oninput="calculate()" value="{{length * selectedStyle.length ++ breadth * selectedStyle.breadth ++ selectedStyle.trimLength}}">
+<input id="result" />
 <button type="submit">submit</button><br/>
-
 </div>
+<script>
+function calculate(){
+	var sWidth = document.getElementById('sWidth').value;
+	var sLength = document.getElementById('sLength').value;
+	var result = document.getElementById('result');
+	var myResult = sWidth * sLength;
+	result.value = myResult;
+}
+</script>
 
 
 <script src ="scripts\myApp.js"></script>
