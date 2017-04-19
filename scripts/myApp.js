@@ -13,7 +13,7 @@ app.controller('styleController', ['$scope', function($scope){
 {
 	type: '0203',
 	height: 1,
-	depth: 2,
+	width: 2,
 	length: 2,
 	breadth: 2,
 	trimWidth: 9,
@@ -34,12 +34,23 @@ app.controller('styleController', ['$scope', function($scope){
 $scope.grades=[{
 
 	type: "125K",
+
 }];
 $scope.flutes=[{
 	flute: "B",
+	image: "/images/bFlute.png",
+},
+{
+	flute: "BC",
+	image: "/images/bcFlute.png",
+},
+{
+	flute: "E",
+	image: "/images/eFlute.png",
 },
 {
 	flute: "C",
+	image: "/images/cFlute.png",
 }];
 
 $scope.liners=[{

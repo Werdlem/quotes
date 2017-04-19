@@ -5,25 +5,52 @@
 <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
 <link rel="stylesheet" type="text/css" href="css/dateInput.css" />
 <body ng-controller="styleController as style">
+
+<style>
+	.dimms{
+		padding-top: 20px;
+		width: 250px;
+			}
+	input{
+		float:right;
+
+	}
+
+	#imgs {
+			float: right; 
+
+	}
+	#imgs img{
+		display: block;
+	}
+
+</style>
 <form method="post" action="posted.php">
+<h1></h1>
 <div class="container">
+<div id="imgs">
+<img ng-src="{{selectedStyle.image}}"/>
+<img ng-src="{{selectedFlute.image}}"/>
+</div>
 <h2>Select Style</h2>
 <select ng-model="selectedStyle" ng-options="x.type for x in styles"></select>
-<br /><img ng-src="{{selectedStyle.image}}"/>
-<h2>Select Grade</h2>	
-<select ng-model="selectedGrade" ng-options="x.type for x in grades"></select>
 <h2>Select Flute</h2>
 <select ng-model="selectedFlute" ng-options="x.flute for x in flutes"></select>
+<h2>Select Grade</h2>	
+<select ng-model="selectedGrade" ng-options="x.type for x in grades"></select>
 <h2>Select Liner</h2>
 <select ng-model="selectedLiner" ng-options="x.grade for x in liners"></select>	
 
-<h3>Length: <input type="text" ng-model="length" ></h3>
+<div class="dimms">
+<h2>Carton Dimms</h2>
+<p>Length: <input type="text" ng-model="length" ></p>
 
-<h3>Breadth: <input type="text" ng-model="breadth" ></h3>
+<p>Breadth: <input type="text" ng-model="breadth" ></p>
 
-<h3>Height: <input type="text" ng-model="height" ></h3>
+<p>Height: <input type="text" ng-model="height" ></p>
 
-<h3>Qty: <input type="text" ng-model="qty"></h3>
+<p>Qty: <input type="text" ng-model="qty"></p>
+</div>
 
 <br/>
 <h3>---------------------------Summary----------------------------------------</h3>
