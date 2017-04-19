@@ -9,6 +9,7 @@
 <div class="container">
 <h2>Select Style</h2>
 <select ng-model="selectedStyle" ng-options="x.type for x in styles"></select>
+<br /><img ng-src="{{selectedStyle.image}}"/>
 <h2>Select Grade</h2>	
 <select ng-model="selectedGrade" ng-options="x.type for x in grades"></select>
 <h2>Select Flute</h2>
@@ -22,34 +23,35 @@
 
 <h3>Height: <input type="text" ng-model="height" ></h3>
 
+<h3>Qty: <input type="text" ng-model="qty"></h3>
+
+<br/>
+<h3>---------------------------Summary----------------------------------------</h3>
+<br />
 <p><h3>Style: {{selectedStyle.type}} </h3>
 <input type="hidden" name="style" value="{{selectedStyle.type}}">
 
 <h3>Grade: {{selectedFlute.flute}}{{selectedGrade.type}}{{selectedLiner.grade}} </h3>
 <input type="hidden" name="details" value="{{selectedGrade.type}}/{{selectedFlute.flute}}/{{selectedLiner.grade}}">
 
-<h3>Blank Size: <span>{{height * selectedStyle.height ++ breadth * selectedStyle.width ++ selectedStyle.trimWidth}} X 
-{{length * selectedStyle.length ++ breadth * selectedStyle.breadth ++ selectedStyle.trimLength}}</span></h3>
+<h3>Blank Size: <span>{{(+height) * (+selectedStyle.height) ++ (+breadth) * (+selectedStyle.width) ++ (+selectedStyle.trimWidth)}} X 
+{{(+length) * (+selectedStyle.length) 
+++ (+breadth) * (+selectedStyle.breadth) 
+++ (+selectedStyle.trimLength)}}</span></h3>
 
-<input type="text" id="sWidth" oninput="calculate()" value="{{height * selectedStyle.height ++ breadth * selectedStyle.width ++ selectedStyle.trimWidth}}">
-<input type="text" id="sLength" oninput="calculate()" value="{{length * selectedStyle.length ++ breadth * selectedStyle.breadth ++ selectedStyle.trimLength}}">
-<input id="result" />
-<button type="submit">submit</button><br/>
-</div>
-<script>
-function calculate(){
-	var sWidth = document.getElementById('sWidth').value;
-	var sLength = document.getElementById('sLength').value;
-	var result = document.getElementById('result');
-	var myResult = sWidth * sLength;
-	result.value = myResult;
-}
-</script>
+<h3>Square M per box: {{(height * selectedStyle.height ++ breadth * selectedStyle.width ++ selectedStyle.trimWidth) * (length * selectedStyle.length ++ breadth * selectedStyle.breadth ++ selectedStyle.trimLength) / 1000000}}</h3>
+
+<h3>Total Square M: {{(height * selectedStyle.height ++ breadth * selectedStyle.width ++ selectedStyle.trimWidth) * (length * selectedStyle.length ++ breadth * selectedStyle.breadth ++ selectedStyle.trimLength) / 1000000 * qty}}</h3>
+
+<label>L: {{length}}</label><br/>
+<label>B: {{breadth}}</label><br/>
+<label>H: {{height}}</label>
+<br/>
+
+<img ng-src="{{selectedStyle.image}}"/>
 
 
 <script src ="scripts\myApp.js"></script>
-
-
 
 </body>
 </html>
