@@ -6,27 +6,7 @@ app.controller('styleController', function($scope, $http) {
         type: "125K",
 
     }];
-    $scope.flutes = [{
-            flute: "B",
-            thickness: 3,
-            image: "/images/bFlute.png",
-        },
-        {
-            flute: "BC",
-            thickness: 7,
-            image: "/images/bcFlute.png",
-        },
-        {
-            flute: "E",
-            thickness: 2,
-            image: "/images/eFlute.png",
-        },
-        {
-            flute: "C",
-            thickness: 4,
-            image: "/images/cFlute.png",
-        }
-    ];
+    $scope.flutes = null;
 
     $scope.liners = [{
             grade: "125T",
@@ -57,9 +37,15 @@ app.controller('styleController', function($scope, $http) {
 
     $http({
         method: 'GET',
-        url: '/styles.json.php'
+        url: '/flutes.json.php'
     }).then(function(response){
         $scope.styles = response.data;
+    });
+    $http({
+    	method: 'GET',
+    	url: '/flutes.json.php'
+    }).then(function(response){
+    	$scope.flutes=response.data;
     });
 
 });

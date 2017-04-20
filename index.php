@@ -37,9 +37,9 @@
                 <img ng-src="{{selectedFlute.image}}" />
             </div>
             <h3>Select Style</h3>
-            <select ng-model="selectedStyle" ng-options="x.type for x in styles"></select>
+            <select ng-model="selectedStyle" ng-options="x.name for x in styles"></select>
             <h3>Select Flute</h3>
-            <select ng-model="selectedFlute" ng-options="x.flute for x in flutes"></select>
+            <select ng-model="selectedFlute" ng-options="x.type for x in flutes"></select>
             <h3>Select Grade</h3>
             <select ng-model="selectedGrade" ng-options="x.type for x in grades"></select>
             <h3>Select Liner</h3>
@@ -72,11 +72,11 @@
 
                 <!--calculation for the sheet board size Height + Base X l * 2 + b * 2 + 25 -->
                 <h3>Blank Size: <span>{{(+height) * (+selectedStyle.height) ++ (+breadth) *
-(+selectedStyle.width) ++ (+selectedFlute.thickness) *
+(+selectedStyle.width) ++ (+selectedFlute.width) *
 (+selectedStyle.trimWidth)}} X
 {{(+length) * (+selectedStyle.length)
 ++ (+breadth) * (+selectedStyle.breadth)
-++ (+selectedFlute.thickness) * (+selectedStyle.trimLength) ++ (+selectedStyle.glueFlap)}}</span></h3>
+++ (+selectedFlute.width) * (+selectedStyle.trimLength) ++ (+selectedStyle.glueFlap)}}</span></h3>
 
                 <!--SQUARE M PER CARTON-->
                 <h3>Square M per box: {{calcSqMperBox()}}</h3>
