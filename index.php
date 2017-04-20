@@ -65,9 +65,10 @@
 <br />
 <p><h3>Style: {{selectedStyle.type}} </h3>
 <input type="hidden" name="style" value="{{selectedStyle.type}}">
-
+<!--SUMMARY OF CARTON SPEC-->
 <h3>Grade: {{selectedFlute.flute}}{{selectedGrade.type}}{{selectedLiner.grade}} </h3>
 <input type="hidden" name="details" value="{{selectedGrade.type}}/{{selectedFlute.flute}}/{{selectedLiner.grade}}">
+
 <!--calculation for the sheet board size Height + Base X l * 2 + b * 2 + 25 -->
 <h3>Blank Size: <span>{{(+height) * (+selectedStyle.height) ++ (+breadth) * 
 (+selectedStyle.width) ++ (+selectedFlute.thickness) * 
@@ -76,11 +77,13 @@
 ++ (+breadth) * (+selectedStyle.breadth) 
 ++ (+selectedFlute.thickness) * (+selectedStyle.trimLength) ++ (+selectedStyle.glueFlap)}}</span></h3>
 
+<!--SQUARE M PER CARTON-->
 <h3>Square M per box: {{(height * selectedStyle.height ++ breadth * selectedStyle.width ++ selectedFlute.thickness*3)
  * (length * selectedStyle.length 
 ++ breadth * selectedStyle.breadth
 ++ selectedFlute.thickness * 8 ++ selectedStyle.glueFlap) / 1000000}}</h3>
 
+<!--CALCULATE THE TOTAL SQUARE M OF BOARD REQUIRED-->
 <h3>Total Square M: {{(height * selectedStyle.height ++ breadth * selectedStyle.width ++ selectedFlute.thickness*3)
  * (length * selectedStyle.length 
 ++ breadth * selectedStyle.breadth
