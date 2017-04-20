@@ -6,8 +6,9 @@ app.controller('styleController', ['$scope', function($scope){
 	width: 1,
 	length: 2,
 	breadth: 2,
-	trimWidth: 9,
-	trimLength: 40,
+	trimWidth: 3,
+	trimLength: 8,
+	glueFlap: 25,
 	image: "/images/0201.png",
 },
 {
@@ -38,18 +39,22 @@ $scope.grades=[{
 }];
 $scope.flutes=[{
 	flute: "B",
+	thickness: 3,
 	image: "/images/bFlute.png",
 },
 {
 	flute: "BC",
+	thickness: 7,
 	image: "/images/bcFlute.png",
 },
 {
 	flute: "E",
+	thickness: 2,
 	image: "/images/eFlute.png",
 },
 {
 	flute: "C",
+	thickness: 4,
 	image: "/images/cFlute.png",
 }];
 

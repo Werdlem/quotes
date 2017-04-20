@@ -7,6 +7,10 @@
 <body ng-controller="styleController as style">
 
 <style>
+	.container{
+
+		padding-top: 50px
+	}
 	.dimms{
 		padding-top: 20px;
 		width: 250px;
@@ -32,13 +36,13 @@
 <img ng-src="{{selectedStyle.image}}"/>
 <img ng-src="{{selectedFlute.image}}"/>
 </div>
-<h2>Select Style</h2>
+<h3>Select Style</h3>
 <select ng-model="selectedStyle" ng-options="x.type for x in styles"></select>
-<h2>Select Flute</h2>
+<h3>Select Flute</h3>
 <select ng-model="selectedFlute" ng-options="x.flute for x in flutes"></select>
-<h2>Select Grade</h2>	
+<h3>Select Grade</h3>	
 <select ng-model="selectedGrade" ng-options="x.type for x in grades"></select>
-<h2>Select Liner</h2>
+<h3>Select Liner</h3>
 <select ng-model="selectedLiner" ng-options="x.grade for x in liners"></select>	
 
 <div class="dimms">
@@ -50,6 +54,10 @@
 <p>Height: <input type="text" ng-model="height" ></p>
 
 <p>Qty: <input type="text" ng-model="qty"></p>
+
+<h2>Costing</h2>
+<p>£ per SqM: <input type="text" ng-model="cost"></p>
+<p>Labour: <input type="text" ng-model="labour"></p>
 </div>
 
 <br/>
@@ -60,15 +68,23 @@
 
 <h3>Grade: {{selectedFlute.flute}}{{selectedGrade.type}}{{selectedLiner.grade}} </h3>
 <input type="hidden" name="details" value="{{selectedGrade.type}}/{{selectedFlute.flute}}/{{selectedLiner.grade}}">
-
-<h3>Blank Size: <span>{{(+height) * (+selectedStyle.height) ++ (+breadth) * (+selectedStyle.width) ++ (+selectedStyle.trimWidth)}} X 
+<!--calculation for the sheet board size Height + Base X l * 2 + b * 2 + 25 -->
+<h3>Blank Size: <span>{{(+height) * (+selectedStyle.height) ++ (+breadth) * 
+(+selectedStyle.width) ++ (+selectedFlute.thickness) * 
+(+selectedStyle.trimWidth)}} X 
 {{(+length) * (+selectedStyle.length) 
 ++ (+breadth) * (+selectedStyle.breadth) 
-++ (+selectedStyle.trimLength)}}</span></h3>
 
-<h3>Square M per box: {{(height * selectedStyle.height ++ breadth * selectedStyle.width ++ selectedStyle.trimWidth) * (length * selectedStyle.length ++ breadth * selectedStyle.breadth ++ selectedStyle.trimLength) / 1000000}}</h3>
+<h3>Square M per box: {{(height * selectedStyle.height ++ breadth * selectedStyle.width ++ selectedFlute.thickness*3)
+ * (length * selectedStyle.length 
+++ breadth * selectedStyle.breadth
+++ selectedFlute.thickness * 8 ++ selectedStyle.glueFlap) / 1000000}}</h3>
 
-<h3>Total Square M: {{(height * selectedStyle.height ++ breadth * selectedStyle.width ++ selectedStyle.trimWidth) * (length * selectedStyle.length ++ breadth * selectedStyle.breadth ++ selectedStyle.trimLength) / 1000000 * qty}}</h3>
+<h3>Total Square M: {{(height * selectedStyle.height ++ breadth * selectedStyle.width ++ selectedFlute.thickness*3)
+ * (length * selectedStyle.length 
+++ breadth * selectedStyle.breadth
+++ selectedFlute.thickness * 8 ++ selectedStyle.glueFlap) / 1000000 * qty}}</h3>
+
 
 <label>L: {{length}}</label><br/>
 <label>B: {{breadth}}</label><br/>
