@@ -74,6 +74,7 @@
 (+selectedStyle.trimWidth)}} X 
 {{(+length) * (+selectedStyle.length) 
 ++ (+breadth) * (+selectedStyle.breadth) 
+++ (+selectedFlute.thickness) * (+selectedStyle.trimLength) ++ (+selectedStyle.glueFlap)}}</span></h3>
 
 <h3>Square M per box: {{(height * selectedStyle.height ++ breadth * selectedStyle.width ++ selectedFlute.thickness*3)
  * (length * selectedStyle.length 
