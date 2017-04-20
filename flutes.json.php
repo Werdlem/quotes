@@ -22,6 +22,24 @@ $stmt->execute();
 $style=$stmt->fetchALL(PDO::FETCH_ASSOC);
 echo json_encode($style);
 
+$stmt = $conn->query("select * from style");
+$stmt->execute();
+$style=$stmt->fetchALL(PDO::FETCH_ASSOC);
+$return=[];
+foreach($style as $row){
+  $return[]=[
+      'id' => $row['id'],
+      'name' => $row['name'],
+      'height' =>$row['height'],
+      'width'=>$row['width'],
+      'length'=> $row['length'],
+      'breadth'=> $row['breadth'],
+      'trimWidth'=>$row['trimWidth'],
+      'trimLength'=>$row['trimLength'],
+      'image' => $row['image']
+  ];
+}
+
 
 $conn = null;
 
