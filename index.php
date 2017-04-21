@@ -64,28 +64,26 @@
             <h3>---------------------------Summary----------------------------------------</h3>
             <br />
             <p>
-                <h3>Style: {{selectedStyle.type}} </h3>
+                <h3>Style: {{selectedStyle.name}} </h3>
                 <input type="hidden" name="style" value="{{selectedStyle.type}}">
                 <!--SUMMARY OF CARTON SPEC-->
-                <h3>Grade: {{selectedFlute.flute}}{{selectedGrade.type}}{{selectedLiner.grade}} </h3>
+                <h3>Grade: {{selectedFlute.type
+                }}{{selectedGrade.type}}{{selectedLiner.grade}} </h3>
                 <input type="hidden" name="details" value="{{selectedGrade.type}}/{{selectedFlute.flute}}/{{selectedLiner.grade}}">
 
                 <!--calculation for the sheet board size Height + Base X l * 2 + b * 2 + 25 -->
-                <h3>Blank Size: <span>{{(+height) * (+selectedStyle.height) ++ (+breadth) *
-(+selectedStyle.width) ++ (+selectedFlute.width) *
-(+selectedStyle.trimWidth)}} X
-{{(+length) * (+selectedStyle.length)
-++ (+breadth) * (+selectedStyle.breadth)
-++ (+selectedFlute.width) * (+selectedStyle.trimLength) ++ (+selectedStyle.glueFlap)}}</span></h3>
+                <h3>Blank Size: <span>{{boardWidth()}} x {{boardLength()}}</span></h3>
 
                 <!--SQUARE M PER CARTON-->
                 <h3>Square M per box: {{calcSqMperBox()}}</h3>
-
+                 
                 <!--CALCULATE THE TOTAL SQUARE M OF BOARD REQUIRED-->
                 <h3>Total Square M:
                     <span ng-if="calcSqMperBoxQty() !== null">{{calcSqMperBoxQty()}}</span>
                     <span ng-if="calcSqMperBoxQty() === null">Can't do that yet</span>
                 </h3>
+                <h3>Cost: 
+                    <span ng-if="calcSqMperBoxQty() !==null">{{calcSqMperBoxQty() * cost}}</span></h3>
 
 
                 <label>L: {{length}}</label><br/>
