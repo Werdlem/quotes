@@ -24,7 +24,8 @@ app.controller('styleController', function($scope, $http) {
     	}
     	catch(x){}
     };
- $scope.calcSqMperBox = function(){
+
+     $scope.calcSqMperBox = function(){
         try {
         return (($scope.height * $scope.selectedStyle.height + $scope.breadth * $scope.selectedStyle.width + (+$scope.selectedFlute.width * $scope.selectedStyle.trimWidth))
         	* ($scope.length * $scope.selectedStyle.length

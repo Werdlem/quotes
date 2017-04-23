@@ -1,52 +1,65 @@
 <!DOCTYPE html>
+<head>
 <html ng-app="quoteApp">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <link rel="stylesheet" href="css/damasco-style.css" type="text/css" />
 <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
 <link rel="stylesheet" type="text/css" href="css/dateInput.css" />
+</html>
 
 <body ng-controller="styleController as style">
 
     <style>
-        .container {
-            padding-top: 50px
-        }
-
-        .dimms {
-            padding-top: 20px;
-            width: 250px;
-        }
-
-        input {
-            float: right;
-        }
-
-        #imgs {
-            float: right;
-        }
-
-        #imgs img {
-            display: block;
-        }
+        
     </style>
     <form method="post" action="posted.php">
         <h1></h1>
         <div class="container">
-            <div id="imgs">
-                <img ng-src="{{selectedStyle.image}}" />
-                <img ng-src="{{selectedFlute.image}}" />
-            </div>
-            <h3>Select Style</h3>
+           <div class="panel-wrapper" style="">
+           <h2>Step 1</h2>
+            <div class="panel panel-primary">
+            <div class="panel-heading">
+            <h3>Select Style</h3></div>
+            <div class="panel-footer">
             <select ng-model="selectedStyle" ng-options="x.name for x in styles"></select>
-            <h3>Select Flute</h3>
-            <select ng-model="selectedFlute" ng-options="x.type for x in flutes"></select>
-            <h3>Select Grade</h3>
-            <select ng-model="selectedGrade" ng-options="x.type for x in grades"></select>
-            <h3>Select Liner</h3>
-            <select ng-model="selectedLiner" ng-options="x.grade for x in liners"></select>
+            <img ng-src="{{selectedStyle.image}}">
+            </div>
+            </div>
 
-            <div class="dimms">
+             <div class="panel panel-primary">
+            <div class="panel-heading">
+            <h3>Select Flute</h3></div>
+             <div class="panel-footer">
+            <select ng-model="selectedFlute" ng-options="x.type for x in flutes"></select>
+             <img ng-src="{{selectedFlute.image}}">
+             </div>
+             </div>
+
+            <div class="panel panel-primary">
+            <div class="panel-heading">
+            <h3>Select Grade</h3></div>
+             <div class="panel-footer">
+            <select ng-model="selectedGrade" ng-options="x.type for x in grades"></select>
+            </div>
+            </div>
+            <div class="panel panel-primary" >
+            <div class="panel-heading">          
+            <h3>Select Liner</h3></div>
+            <div class="panel-footer">
+            <select ng-model="selectedLiner" ng-options="x.grade for x in liners"></select>
+            </div>
+            </div>
+            </div>
+
+
+          <div class="panel-wrapper">
+              <div class="dimms">
+              <h2>Step 2</h2>
+            <div class="panel panel-primary">
+            <div class="panel-heading">          
                 <h2>Carton Dimms</h2>
+                </div>
+               <div class="panel-footer">
                 <p>Length: <input type="text" ng-model="length"></p>
 
                 <p>Breadth: <input type="text" ng-model="breadth"></p>
@@ -54,15 +67,21 @@
                 <p>Height: <input type="text" ng-model="height"></p>
 
                 <p>Qty: <input type="text" ng-model="qty"></p>
-
-                <h2>Costing</h2>
+                </div>
+                </div>
+            <div class="panel panel-primary">
+            <div class="panel-heading">       
+                <h2>Costing</h2></div>
+                <div class="panel-footer">
                 <p>£ per SqM: <input type="text" ng-model="cost"></p>
                 <p>Labour: <input type="text" ng-model="labour"></p>
-            </div>
+                </div>
+                </div>
+                </div>
+                </div>
 
-            <br/>
-            <h3>---------------------------Summary----------------------------------------</h3>
-            <br />
+            <div id="summary" style="float: left; width: 900px">
+           <h3>Summary</h3>
             <p>
                 <h3>Style: {{selectedStyle.name}} </h3>
                 <input type="hidden" name="style" value="{{selectedStyle.type}}">
@@ -90,6 +109,8 @@
                 <label>B: {{breadth}}</label><br/>
                 <label>H: {{height}}</label>
                 <br/>
+                </p>
+                </div>
 
                 <img ng-src="{{selectedStyle.image}}" />
 

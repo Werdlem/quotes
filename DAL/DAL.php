@@ -47,7 +47,7 @@ public function addStyle($style,$height,$width,$length,$breadth,$glueFlap,$trimW
   $stmt = $pdo->prepare('insert into style
     (name, height, width, length, breadth, glueFlap, trimWidth, trimLength, image)
     values (?,?,?,?,?,?,?,?,?)');
-  $stmt->bindvalue(1, $style);#
+  $stmt->bindvalue(1, $style);
   $stmt->bindvalue(2, $height);
   $stmt->bindvalue(3, $width);
   $stmt->bindvalue(4, $length);
