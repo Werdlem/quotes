@@ -61,7 +61,7 @@ include ('header.php')
                             <p>Breadth: <input type="text" ng-model="breadth"></p>
 
                             <p>Height: <input type="text" ng-model="height"></p>
-                            <p>Finish: <select style="float: right; width: 174px; height: 26px;" ng-model="selectFinish" ng-options="x.finish for x in finish" ng-init="selectFinish = finish[0]" ></select></p>
+                            <p>Finish: <select style="float: right; width: 174px; height: 26px;" ng-model="selectedFinish" ng-options="x.finish for x in finish" ng-init="selectedFinish = finish[0]" ></select></p>
 
                             <p>Qty: <input type="text" name="qty" ng-model="qty"></p>
                         </div>
@@ -136,29 +136,68 @@ include ('header.php')
             <div id="jobSheet">
              <h3 style="text-decoration: underline;">Job Sheet</h3>
 
-             <p><label>Style: {{selectedStyle.name}}</label></p>
-             <p><label>Qty: {{qty}}</label></p>
-             <p><label>Dimms: {{length}} x {{breadth}} x {{height}}</label></p>
-             <p><img ng-src="{{selectedStyle.image}}"></label>
-                 <p><label>Grade: {{selectedFlute.type}}{{selectedGrade.type}}{{selectedLiner.grade}} </label>
-                     <p><label>Finish: {{selectFinish.finish}}</label></p>
+<style>
+@page{
+    size: landscape;
 
-                     <h3>Machine Set Up</h3>
-                     <h4>Step 1</h4>
-                     <p>for sheetboard not speciffically brought in, please cut chosen board to the following size:
-                      <p><label>Width: {{boardWidth()}}</label>
-                         <p><label>Length: {{boardLength()}}</label>
-                             <h4>Step 2</h4>
-                             <label>Creases</label>
-                             <p><label>Dimm 1: {{breadth / 2}}</label>
-                                 <p><label>Dimm 2: {{height}}</label>
-                                     <h4>Step 3</h4>
-                                     <p><label>Blade Settings: <p>1) {{length}}mm <p>2) {{breadth}}mm <p>3) {{length}}mm <p>4) {{breadth}}mm </label>
-                                     </p>
-                                     <h3><strong>NB: PLEASE CHECK ALL DIMMS MATCH THE SPECIFICATION SHEET!</strong></h2>
-                                     </div>
+}
 
-                                 </div>
+}
+table{
+    
+}
+
+th{
+    border: 1px solid blue;
+    text-align: right;
+    font-size: 18px
+}
+td{
+    border: 1 px solid blue;
+    text-align: center;
+    font-size: 18px
+}
+</style>
+
+<div class="jobSheet">
+    <table>
+        
+        <tr>
+        <th>Name:</th>  <td>{name}</td>
+            <th>Sheet Board Size:</th>  <td>{{boardWidth()}} x {{boardLength()}}</td>
+            <th>Deckle:</th>    <td>{{boardWidth()}}</td>
+            <th>Chop Crease:</th>   <td>{{boardLength() + 55}}</td>
+
+
+            </tr>
+            
+            <tr>
+        <th>Style:</th> <td>{{selectedStyle.name}}</td>
+        <th>Grade:</th> <td>{{selectedFlute.type}}{{selectedGrade.type}}{{selectedLiner.grade}}</td>
+        <th>Chop:</th>  <td>{{boardLength()}}</td>
+        <th>Deckle Crease</th>  <td>{deckle crease}</td>
+        
+        </tr>
+        
+        <tr>
+        <th>Internal Dimms:</th>    <td>{{length}}x{{breadth}}x{{height}}</td>
+            <th>Flute:</th> <td>{{selectedFlute.type}}</td>
+            <th></th>   <td></td>
+            <th>Slit:</th>  <td>{slit}</td>
+        </tr>
+
+        <tr>
+        <th>Finish:</th><td>{{selectedFinish.finish}}</td>
+        <th>Quantity:</th><td>{{qty}}</td>
+        </tr>
+        </table>
+        <img ng-src="{{selectedStyle.image}}">
+
+</div>
+
+
+
+
 
 
 
