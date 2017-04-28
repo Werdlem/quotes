@@ -132,7 +132,7 @@ include ('header.php')
 
         <!--job sheet record-->
 
-        <div class="jobSheet" style="float: left; width: 900px">
+        <div class="jobSheet" >
             <div id="jobSheet">
              <h3 style="text-decoration: underline;">Job Sheet</h3>
 
@@ -142,26 +142,34 @@ include ('header.php')
 
 }
 
-}
 table{
-    
+  width: 70%; 
+  float: right;
+border-collapse: collapse;
+}
+table,th,td{
+    border: 1px solid black;
 }
 
 th{
-    border: 1px solid blue;
+    
     text-align: right;
-    font-size: 18px
+    font-size: 14px;
+   
 }
 td{
-    border: 1 px solid blue;
-    text-align: center;
-    font-size: 18px
+    
+    text-align: left;
+    font-size: 14px;
+  
 }
 </style>
 
 <div class="jobSheet">
+<div>
+
     <table>
-        
+
         <tr>
         <th>Name:</th>  <td>{name}</td>
             <th>Sheet Board Size:</th>  <td>{{boardWidth()}} x {{boardLength()}}</td>
@@ -191,9 +199,14 @@ td{
         <th>Quantity:</th><td>{{qty}}</td>
         </tr>
         </table>
+         <p><img src="/css/images/dam.png" style=" overflow: auto;"></p>
+         </div>
         <img ng-src="{{selectedStyle.image}}">
 
 </div>
+
+
+
 
 
 
