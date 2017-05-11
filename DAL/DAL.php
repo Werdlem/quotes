@@ -59,4 +59,28 @@ public function addStyle($style,$height,$width,$length,$breadth,$glueFlap,$trimW
   $stmt->execute();
 
 }
+
+public function addJob($ref, $style, $height, $length, $breadth, $qty, $deckle, $chop, $chopCrease, $deckleCrease, $slit, $finish, $grade, $image, $initials ){
+  $pdo = Database::DB();
+  $stmt = $pdo->prepare('insert into cartons
+    (ref, style, height, length, breadth, qty, deckle, chop, chopCrease, deckleCrease, slit, finish, grade, image, initials)
+    values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+  $stmt->bindvalue(1, $ref);
+  $stmt->bindvalue(2, $style);
+  $stmt->bindvalue(3, $height);
+  $stmt->bindvalue(4, $length);
+  $stmt->bindvalue(5, $breadth);
+  $stmt->bindvalue(6, $qty);
+  $stmt->bindvalue(7, $deckle);
+  $stmt->bindvalue(8, $chop);
+  $stmt->bindvalue(9, $chopCrease);
+  $stmt->bindvalue(10, $deckleCrease);
+  $stmt->bindvalue(11, $slit);
+  $stmt->bindvalue(12, $finish);
+  $stmt->bindvalue(13, $grade);
+  $stmt->bindvalue(14, $image);
+  $stmt->bindvalue(15, $initials);
+  $stmt->execute();
+
+}
 }

@@ -9,3 +9,4 @@
 
 
 <body ng-controller="styleController as style">
+<div class="container">

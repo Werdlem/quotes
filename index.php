@@ -9,8 +9,6 @@ include ('header.php')
 
 </style>
 
-<h1></h1>
-<div class="container">
  <div class="panel-wrapper" style="">
      <h2>Step 1</h2>
      <div class="panel panel-primary">
@@ -117,8 +115,16 @@ include ('header.php')
                         <input type="hidden" name="breadth" value="{{breadth}}">
                         <input type="hidden" name="height" value="{{height}}">
                         <input type="hidden" name="style" value="{{selectedStyle.name}}">
-                        <input type="hidden" name="details" value="{{selectedGrade.type}}{{selectedFlute.flute}}{{selectedLiner.grade}}">
-
+                        <input type="hidden" name="qty" value="{{qty}}">
+                         <input type="hidden" name="deckle" value="{{boardWidth()}}">
+                        <input type="hidden" name="chop" value="{{boardLength()}}">
+                        <input type="hidden" name="chopCrease" value="{{boardLength() + 55}}">
+                        <input type="hidden" name="deckleCrease" value="15">
+                        <input type="hidden" name="slit" value="15">
+                         <input type="hidden" name="finish" value="{{selectedFinish.finish}}">
+                        <input type="hidden" name="grade" value="{{selectedFlute.type}}{{selectedGrade.type}}{{selectedLiner.grade}}">
+                        <input type="hidden" name="image" value="{{selectedStyle.image}}">
+                        
                         <br/>
                     </p>
                 </div>
@@ -149,6 +155,7 @@ border-collapse: collapse;
 }
 table,th,td{
     border: 1px solid black;
+    
 }
 
 th{
@@ -204,17 +211,7 @@ td{
         <img ng-src="{{selectedStyle.image}}">
 
 </div>
-
-
-
-
-
-
-
-
-
-
-                                 <script src="scripts\myApp.js"></script>
+<script src="scripts\myApp.js"></script>
                              </div>
                          </body>
 

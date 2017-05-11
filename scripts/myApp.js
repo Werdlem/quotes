@@ -107,7 +107,7 @@ app.controller('styleController', function($scope, $http) {
     	}
     	catch(x){}
     };
-
+    
     $scope.printSheet = function(jobSheet) {
   var printContents = document.getElementById(jobSheet).innerHTML;
   var popupWin = window.open('', '_blank', 'width=600,height=600');
