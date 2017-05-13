@@ -56,7 +56,7 @@ include ('header.php')
                         <div class="panel-footer">
                             <p>Length: <input type="text" ng-model="length"></p>
 
-                            <p>Breadth: <input type="text" ng-model="breadth"></p>
+                            <p>Width: <input type="text" ng-model="width"></p>
 
                             <p>Height: <input type="text" ng-model="height"></p>
                             <p>Finish: <select style="float: right; width: 174px; height: 26px;" ng-model="selectedFinish" ng-options="x.finish for x in finish" ng-init="selectedFinish = finish[0]" ></select></p>
@@ -86,14 +86,17 @@ include ('header.php')
                  <h3 style="text-decoration: underline;">Summary</h3>
                     <p>
                         <span><h3>Style: {{selectedStyle.name}} </h3></span>
-                       
+                        <span><h3>Chop Crease 1: {{calcChopCrease1()}}</h3></span>
+                        <span><h3>Chop Crease 2: {{calcChopCrease2()}}</h3></span>
+
+                                            
                         <!--SUMMARY OF CARTON SPEC-->
                         <h3>Grade: {{selectedFlute.type
                         }}{{selectedGrade.type}}{{selectedLiner.grade}} </h3>
                        
 
                         <!--calculation for the sheet board size Height + Base X l * 2 + b * 2 + 25 -->
-                        <h3>Blank Size: <span ng-if="sheetBoardSize() !==null">{{boardWidth()}} x {{boardLength()}}</span></h3>
+                        <h3>Blank Size: <span ng-if="sheetBoardSize() !==null">{{boardDeckle()}} x {{boardChop()}}</span></h3>
 
                         <!--SQUARE M PER CARTON-->
                         <h3>Square M per box: {{calcSqMperBox() | number:3}}</h3>

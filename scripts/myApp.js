@@ -52,29 +52,23 @@ app.controller('styleController', function($scope, $http) {
     $scope.labour = 8;
     
 
-       $scope.boardWidth = function(){
+       $scope.boardDeckle = function(){
     	try{
-    		return ($scope.height * $scope.selectedStyle.height + $scope.breadth * $scope.selectedStyle.width + (+$scope.selectedFlute.width * $scope.selectedStyle.trimWidth))       
+    		return ($scope.selectedStyle.breadth * $scope.width * 2 +(+$scope.height) + (+$scope.selectedStyle.trimWidth) + (+$scope.selectedFlute.width))       
     	}
     	catch(x){}
     };
 
-    $scope.boardLength = function(){
+    $scope.boardChop = function(){
     	try{
-    		return ($scope.length * $scope.selectedStyle.length
-            + $scope.breadth * $scope.selectedStyle.breadth
-            + (+$scope.selectedFlute.width * $scope.selectedStyle.trimLength) + (+$scope.selectedStyle.glueFlap))
+    		return (($scope.selectedStyle.length * $scope.length )+($scope.selectedStyle.width * $scope.width) + (+$scope.selectedStyle.glueFlap) + (+$scope.selectedStyle.trimLength))
     	}
     	catch(x){}
     };
 
-     $scope.calcSqMperBox = function(){
+    $scope.calcSqMperBox = function(){
         try {
-        return (($scope.height * $scope.selectedStyle.height + $scope.breadth * $scope.selectedStyle.width + (+$scope.selectedFlute.width * $scope.selectedStyle.trimWidth))
-        	* ($scope.length * $scope.selectedStyle.length
-            + $scope.breadth * $scope.selectedStyle.breadth
-            + (+$scope.selectedFlute.width * $scope.selectedStyle.trimLength) + (+$scope.selectedStyle.glueFlap))
-           ) 
+        return ($scope.boardDeckle() * $scope.boardChop()) 
          /1000000;
         } catch(x) {}
     };
@@ -87,8 +81,22 @@ app.controller('styleController', function($scope, $http) {
         return res;
     };
 
+    $scope.calcChopCrease1 = function(){
+      try{
+        return($scope.width * $scope.selectedStyle.breadth)
+      }
+      catch(x){}
+    };
+
+    $scope.calcChopCrease2 = function(){
+      try{
+        return($scope.calcChopCrease1() + (+$scope.height))
+      }
+      catch(x){}
+    };
+
     $scope.sheetBoardSize = function(){
-        var res = $scope.boardWidth();
+        var res = $scope.boardDeckle();
         if (isNaN(res)) {
             return null;
         }
