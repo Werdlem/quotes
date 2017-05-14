@@ -111,7 +111,7 @@ include ('header.php')
                         <h3>Margin per box: {{calculateMargin() /(qty) | currency: '£'}}</h3>
                         <h3>Total: {{calculateCost() + calculateMargin() | currency: '£' }}</h3>
                         <label>L: {{length}}</label><br/>
-                        <label>B: {{breadth}}</label><br/>
+                        <label>B: {{width}}</label><br/>
                         <label>H: {{height}}</label>
                         <!--Hidden fields for page Posting-->
                         <input type="hidden" name="length" value="{{length}}">
