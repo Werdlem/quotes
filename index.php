@@ -115,12 +115,12 @@ include ('header.php')
                         <label>H: {{height}}</label>
                         <!--Hidden fields for page Posting-->
                         <input type="hidden" name="length" value="{{length}}">
-                        <input type="hidden" name="breadth" value="{{breadth}}">
+                        <input type="hidden" name="width" value="{{width}}">
                         <input type="hidden" name="height" value="{{height}}">
                         <input type="hidden" name="style" value="{{selectedStyle.name}}">
                         <input type="hidden" name="qty" value="{{qty}}">
-                         <input type="hidden" name="deckle" value="{{boardWidth()}}">
-                        <input type="hidden" name="chop" value="{{boardLength()}}">
+                         <input type="hidden" name="deckle" value="{{boardDeckle()}}">
+                        <input type="hidden" name="chop" value="{{boardChop()}}">
                         <input type="hidden" name="chopCrease" value="{{boardLength() + 55}}">
                         <input type="hidden" name="deckleCrease" value="15">
                         <input type="hidden" name="slit" value="15">

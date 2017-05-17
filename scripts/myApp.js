@@ -51,28 +51,28 @@ app.controller('styleController', function($scope, $http) {
 
     $scope.labour = 8;
     
-
+        // Calculate the deckle width
        $scope.boardDeckle = function(){
     	try{
     		return ($scope.selectedStyle.breadth * $scope.width * 2 +(+$scope.height) + (+$scope.selectedStyle.trimWidth) + (+$scope.selectedFlute.width))       
     	}
     	catch(x){}
     };
-
+        // calculate the chop length
     $scope.boardChop = function(){
     	try{
     		return (($scope.selectedStyle.length * $scope.length )+($scope.selectedStyle.width * $scope.width) + (+$scope.selectedStyle.glueFlap) + (+$scope.selectedStyle.trimLength))
     	}
     	catch(x){}
     };
-
+        // calculate the square Meter per carton
     $scope.calcSqMperBox = function(){
         try {
         return ($scope.boardDeckle() * $scope.boardChop()) 
          /1000000;
         } catch(x) {}
     };
-
+        // calculate the square meters of total carton quantity
     $scope.calcSqMperBoxQty = function(){
         var res = $scope.calcSqMperBox() * $scope.qty;
         if (isNaN(res)) {
@@ -80,7 +80,7 @@ app.controller('styleController', function($scope, $http) {
         }
         return res;
     };
-
+        // calculate the Chop creasing positions
     $scope.calcChopCrease1 = function(){
       try{
         return($scope.width * $scope.selectedStyle.breadth)
@@ -95,6 +95,16 @@ app.controller('styleController', function($scope, $http) {
       catch(x){}
     };
 
+        // END
+
+      // Calculate the deckle creasing positions  
+    $scop.calcDeckleCrease = function(){
+
+    }
+
+        // END
+
+          // Calculate the sheetboard blank size
     $scope.sheetBoardSize = function(){
         var res = $scope.boardDeckle();
         if (isNaN(res)) {
@@ -103,6 +113,7 @@ app.controller('styleController', function($scope, $http) {
         return res;
     };
 
+        // calculate the cost of carton based on carton variables
     $scope.calculateCost = function(){
     	try{
     		return(($scope.calcSqMperBoxQty() * $scope.cost + ($scope.selectFinish.cost * $scope.qty) + ($scope.hours * $scope.labour)))
@@ -115,6 +126,7 @@ app.controller('styleController', function($scope, $http) {
     	}
     	catch(x){}
     };
+
     
     $scope.printSheet = function(jobSheet) {
   var printContents = document.getElementById(jobSheet).innerHTML;
@@ -124,19 +136,23 @@ app.controller('styleController', function($scope, $http) {
   popupWin.document.close();
 };
 
-
+      // JSON DB data of carton styles
     $http({
         method: 'GET',
         url: './jsonData/styles.json.php'
     }).then(function(response){
         $scope.styles = response.data;
     });
+
+     // JSON DB data of board fluting
     $http({
     	method: 'GET',
     	url: './jsonData/flutes.json.php'
     }).then(function(response){
     	$scope.flutes=response.data;
     });
+
+    // JSON DB data of board grades
     $http({
     	method: 'GET',
     	url: './jsonData/grades.json.php'

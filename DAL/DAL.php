@@ -83,4 +83,15 @@ public function addJob($ref, $style, $height, $length, $breadth, $qty, $deckle, 
   $stmt->execute();
 
 }
+
+public function getCarton($ref){
+  $pdo = Database::DB();
+  $stmt = $pdo->prepare('select *
+    from cartons
+    where 
+    ref = :stmt');
+  $stmt -> bindvalue(':stmt', $ref);
+  $stmt->execute();
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

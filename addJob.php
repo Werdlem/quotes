@@ -11,7 +11,7 @@ include ('header.php')
 $style = $_POST['style'];
 $height =  $_POST['height'];
 $length =  $_POST['length'];
-$breadth = $_POST['breadth'];
+$width = $_POST['width'];
 $qty = $_POST['qty'];
 $deckle =  $_POST['deckle'];
 $chop =  $_POST['chop'];
@@ -26,14 +26,14 @@ $image = $_POST['image'];
 
 echo '<p>Style: <input type="text" name="style" value="'.$style .'">'.
  '<p>Height: '.$height.
- '<p>Breadth: '.$breadth.
+ '<p>width: '.$width.
  '<p>Length: '.$length.
  '<p>Spec: '.$grade.
  '<p><img src="'.$image.'">';
  ?>
  
  <input type="hidden" name="length" value="<?php echo $length ?>">
-                        <input type="hidden" name="breadth" value="<?php echo $breadth ?>">
+                        <input type="hidden" name="width" value="<?php echo $width ?>">
                         <input type="hidden" name="height" value="<?php echo $height ?>">
                         <input type="hidden" name="style" value="<?php echo $style ?>">
                         <input type="hidden" name="qty" value="<?php echo $qty ?>">
