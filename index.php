@@ -15,7 +15,7 @@ include ('header.php')
         <div class="panel-heading">
             <h3>Select Style</h3></div>
             <div class="panel-footer">
-                <select ng-model="selectedStyle" ng-options="x.name for x in styles"></select>
+                <select ng-model="selectedStyle" ng-options="x.style for x in styles"></select>
                 <img ng-src="{{selectedStyle.image}}">
             </div>
         </div>
@@ -24,7 +24,7 @@ include ('header.php')
             <div class="panel-heading">
                 <h3>Select Flute</h3></div>
                 <div class="panel-footer">
-                    <select ng-model="selectedFlute" ng-options="x.type for x in flutes" ng-init="selectedFlute = flutes[0]" ></select>
+                    <select ng-model="selectedFlute" ng-options="x.flute for x in flutes" ng-init="selectedFlute = flutes[0]" ></select>
                     <img ng-src="{{selectedFlute.image}}">
                 </div>
             </div>
@@ -33,14 +33,14 @@ include ('header.php')
                 <div class="panel-heading">
                     <h3>Select Grade</h3></div>
                     <div class="panel-footer">
-                        <select ng-model="selectedGrade" ng-options="x.type for x in grades" ng-init="selectedGrade = type[0]" ></select>
+                        <select ng-model="selectedGrade" ng-options="x.grade for x in grades" ng-init="selectedGrade = type[0]" ></select>
                     </div>
                 </div>
                 <div class="panel panel-primary" >
                     <div class="panel-heading">          
                         <h3>Select Liner</h3></div>
                         <div class="panel-footer">
-                            <select ng-model="selectedLiner" ng-options="x.grade for x in liners" ng-init="selectedLiner = grade[0]" ></select>
+                            <select ng-model="selectedLiner" ng-options="x.liner for x in liners" ng-init="selectedLiner = liner[0]" ></select>
                         </div>
                     </div>
                 </div>
@@ -60,6 +60,7 @@ include ('header.php')
 
                             <p>Height: <input type="text" ng-model="height"></p>
                             <p>Finish: <select style="float: right; width: 174px; height: 26px;" ng-model="selectedFinish" ng-options="x.finish for x in finish" ng-init="selectedFinish = finish[0]" ></select></p>
+                            <p>Category: <select style="float: right; width: 174px; height: 26px;" ng-model="selectedCategory" ng-options="x.category for x in category" ng-init="selectedCategory = category[0]" ></select></p>
 
                             <p>Qty: <input type="text" name="qty" ng-model="qty"></p>
                         </div>
@@ -85,14 +86,14 @@ include ('header.php')
                  <form method="post" action="addJob.php">
                  <h3 style="text-decoration: underline;">Summary</h3>
                     <p>
-                        <span><h3>Style: {{selectedStyle.name}} </h3></span>
+                        <span><h3>Style: {{selectedStyle.style}} </h3></span>
                         <span><h3>Chop Crease 1: {{calcChopCrease1()}}</h3></span>
                         <span><h3>Chop Crease 2: {{calcChopCrease2()}}</h3></span>
 
                                             
                         <!--SUMMARY OF CARTON SPEC-->
-                        <h3>Grade: {{selectedFlute.type
-                        }}{{selectedGrade.type}}{{selectedLiner.grade}} </h3>
+                        <h3>Grade: {{selectedFlute.flute
+                        }}{{selectedGrade.grade}}{{selectedLiner.liner}}</h3>
                        
 
                         <!--calculation for the sheet board size Height + Base X l * 2 + b * 2 + 25 -->
@@ -110,10 +111,7 @@ include ('header.php')
                         <h3>Margin: {{calculateMargin() | currency: '£'}}</h3>
                         <h3>Margin per box: {{calculateMargin() /(qty) | currency: '£'}}</h3>
                         <h3>Total: {{calculateCost() + calculateMargin() | currency: '£' }}</h3>
-                        <label>L: {{length}}</label><br/>
-                        <label>B: {{width}}</label><br/>
-                        <label>H: {{height}}</label>
-                        <!--Hidden fields for page Posting-->
+                                                <!--Hidden fields for page Posting-->
                         <input type="hidden" name="length" value="{{length}}">
                         <input type="hidden" name="width" value="{{width}}">
                         <input type="hidden" name="height" value="{{height}}">
@@ -131,9 +129,7 @@ include ('header.php')
                         <br/>
                     </p>
                 </div>
-                <img ng-src="{{selectedStyle.image}}" />
-
-               <button type="submit">Save Job</button> 
+                              <button type="submit">Save Job</button> 
             </form>
             
         </div>

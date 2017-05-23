@@ -44,4 +44,5 @@ $image = $_POST['image'];
 
 $carton->addJob($ref, $style, $height, $length, $width, $qty, $deckle, $chop, $chopCrease, $deckleCrease, $slit, $finish, $grade, $image, $initials);
 header("location:jobSheet&ref=".$sku);
+
 };

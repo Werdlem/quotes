@@ -42,6 +42,30 @@ public function getGrades(){
   $stmt->execute();
   return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+public function getLiners(){
+  $pdo= Database::DB();
+  $stmt = $pdo->prepare('select *
+    from liner');
+  $stmt->execute();
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function getFinish(){
+  $pdo= Database::DB();
+  $stmt = $pdo->prepare('select *
+    from finish');
+  $stmt->execute();
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function getCategories(){
+  $pdo= Database::DB();
+  $stmt = $pdo->prepare('select *
+    from category');
+  $stmt->execute();
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 public function addStyle($style,$height,$width,$length,$breadth,$glueFlap,$trimWidth,$trimLength,$image){
   $pdo = Database::DB();
   $stmt = $pdo->prepare('insert into style

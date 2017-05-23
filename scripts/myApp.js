@@ -1,76 +1,69 @@
 var app = angular.module('quoteApp', []);
 app.controller('styleController', function($scope, $http) {
     
-    $scope.liners = [{
-            grade: "125T",
-        },
-        {
-            grade: "125K",
-        }
-    ];
-
-    $scope.finish =[{
-    	finish: "Glued",
-    	cost: 0.10
+        $scope.margin =[{
+    	margin: .10
     },
     {
-    	finish: "Stitched",
-    	cost: 0.25
-    }];
-
-     $scope.margin =[{
-    	amt: .10
+    	margin: .20
     },
     {
-    	amt: .20
-    },
-    {
-     	amt: .30
+     	margin: .30
      },
      {
-     	amt:.40
+     	margin:.40
      },
       {
-     	amt: .50
+     	margin: .50
      },
       {
-     	amt: .60
+     	margin: .60
      },
       {
-     	amt: .70
+     	margin: .70
      },
       {
-     	amt: .80
+     	margin: .80
      },
       {
-     	amt: .90
+     	margin: .90
      },
       {
-     	amt: 1
+     	margin: 1
      }];
 
     $scope.labour = 8;
+
+    //Carton Grade Specs
+
+    $scope.cartonGrade = function(){
+     
+        return($scope.selectedGrade.grade +'/'+ $scope.selectedFlute.flute +'/'+ $scope.selectedLiner.liner)
+     
+    };
     
         // Calculate the deckle width
        $scope.boardDeckle = function(){
     	try{
-    		return ($scope.selectedStyle.breadth * $scope.width * 2 +(+$scope.height) + (+$scope.selectedStyle.trimWidth) + (+$scope.selectedFlute.width))       
+    		return ($scope.selectedStyle.breadth * $scope.width * 2 +(+$scope.height) + (+$scope.selectedCategory.trimWidth) + (+$scope.selectedFlute.width))       
     	}
     	catch(x){}
     };
         // calculate the chop length
     $scope.boardChop = function(){
     	try{
-    		return (($scope.selectedStyle.length * $scope.length )+($scope.selectedStyle.width * $scope.width) + (+$scope.selectedStyle.glueFlap) + (+$scope.selectedStyle.trimLength))
+    		return (($scope.selectedStyle.length * $scope.length )+($scope.selectedStyle.width * $scope.width) + (+$scope.selectedCategory.glueFlap) + (+$scope.selectedCategory.trimLength))
     	}
     	catch(x){}
     };
         // calculate the square Meter per carton
     $scope.calcSqMperBox = function(){
-        try {
-        return ($scope.boardDeckle() * $scope.boardChop()) 
+       var res = $scope.boardDeckle() * $scope.boardChop()
          /1000000;
-        } catch(x) {}
+        if(isNaN(res)){
+          return null;
+        }
+        return res;
     };
         // calculate the square meters of total carton quantity
     $scope.calcSqMperBoxQty = function(){
@@ -82,25 +75,19 @@ app.controller('styleController', function($scope, $http) {
     };
         // calculate the Chop creasing positions
     $scope.calcChopCrease1 = function(){
-      try{
-        return($scope.width * $scope.selectedStyle.breadth)
+     var res = ($scope.width * $scope.selectedStyle.breadth + (+$scope.selectedFlute.width / 2 ));
+      if(isNaN(res)){
+        return null;
       }
-      catch(x){}
+      return res;
     };
 
     $scope.calcChopCrease2 = function(){
       try{
-        return($scope.calcChopCrease1() + (+$scope.height))
+        return($scope.calcChopCrease1() + (+$scope.height)+(+$scope.selectedFlute.width / 2))
       }
       catch(x){}
     };
-
-        // END
-
-      // Calculate the deckle creasing positions  
-    $scop.calcDeckleCrease = function(){
-
-    }
 
         // END
 
@@ -115,16 +102,27 @@ app.controller('styleController', function($scope, $http) {
 
         // calculate the cost of carton based on carton variables
     $scope.calculateCost = function(){
-    	try{
-    		return(($scope.calcSqMperBoxQty() * $scope.cost + ($scope.selectFinish.cost * $scope.qty) + ($scope.hours * $scope.labour)))
-    	}
-    	catch(x){}
+    	var res =(($scope.calcSqMperBoxQty() * $scope.cost + (+$scope.selectedFinish.rate * ($scope.height * 0.04) * $scope.qty) + ($scope.hours * $scope.labour)));
+          if(isNaN(res)){
+            return null;
+          }
+          return res;
     };
+
     $scope.calculateMargin = function(){
-    	try{
-    		return((($scope.calcSqMperBoxQty() * $scope.cost + ($scope.selectFinish.cost * $scope.qty) + ($scope.hours * $scope.labour)) * $scope.selectMargin.amt))
-    	}
-    	catch(x){}
+    	var res= $scope.calculateCost() * $scope.selectedMargin.margin;
+      if(isNaN(res)){
+        return null;
+      }
+    	return res;
+    };
+
+     $scope.calculateTotal = function(){
+      var res = $scope.calculateCost() + $scope.calculateMargin();
+      if(isNaN(res)){
+        return null;
+      }
+      return res;
     };
 
     
@@ -158,6 +156,28 @@ app.controller('styleController', function($scope, $http) {
     	url: './jsonData/grades.json.php'
     }).then(function(response){
     	$scope.grades=response.data;
+    });
+
+     // JSON DB data of board Liners
+    $http({
+      method: 'GET',
+      url: './jsonData/liners.json.php'
+    }).then(function(response){
+      $scope.liners=response.data;
+    });
+
+    $http({
+      method: 'GET',
+      url: './jsonData/finish.json.php'
+    }).then(function(response){
+      $scope.finish=response.data;
+    });
+
+    $http({
+      method: 'GET',
+      url: './jsonData/category.json.php'
+    }).then(function(response){
+      $scope.category=response.data;
     });
 
 });
