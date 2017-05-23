@@ -52,7 +52,6 @@ include ('header.php')
 <p><span ng-if="calculateMargin() !==null"><strong>Margin per box:</strong> {{calculateMargin() /(qty) | currency: '£'}}</span></p>
 <p><span ng-if="calculateTotal() !==null"><strong>Total:</strong> {{calculateTotal() | currency: '£' }}</span></p>
 
-
 <p><span ng-if="calcChopCrease1() !==null"><strong>Chop Crease 1:</strong> {{calcChopCrease1()}}</span></p>
 <p><span ng-if="calcChopCrease1() !==null"><strong>Chop Crease 2:</strong> {{calcChopCrease2()}}</span></p>
 </div>
@@ -62,7 +61,7 @@ include ('header.php')
                         <input type="text" name="length" value="{{length}}">
                         <input type="text" name="width" value="{{width}}">
                         <input type="text" name="height" value="{{height}}">
-                        <input type="text" name="style" value="{{selectedStyle.name}}">
+                        <input type="text" name="style" value="{{selectedStyle.style}}">
                         <input type="text" name="qty" value="{{qty}}">
                          <input type="text" name="deckle" value="{{boardDeckle()}}">
                         <input type="text" name="chop" value="{{boardChop()}}">
@@ -73,7 +72,7 @@ include ('header.php')
                         <input type="text" name="grade" value="{{selectedFlute.type}}{{selectedGrade.type}}{{selectedLiner.grade}}">
                         <input type="text" name="image" value="{{selectedStyle.image}}">
                         <input type="text" name="image" value="{{cost | currency: '£'}}">
-                        <input type="text" name="image" value="{{margin}}">
+                        <input type="text" name="image" value="{{selectedMargin.margin}}">
 
     <!--end-->
 <script src="scripts\myApp.js"></script>

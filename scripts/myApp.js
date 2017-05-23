@@ -89,6 +89,8 @@ app.controller('styleController', function($scope, $http) {
       catch(x){}
     };
 
+    
+
         // END
 
           // Calculate the sheetboard blank size
