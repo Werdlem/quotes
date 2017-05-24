@@ -26,8 +26,8 @@ echo $style;
 
 if (isset($_POST['addJob']))
 {
-$ref = $_POST['ref'];
-$initials = $_POST['initials'];
+	$ref = $_POST['ref'];
+	$initials = $_POST['initials'];
 $style = $_POST['style'];
 $height =  $_POST['height'];
 $length =  $_POST['length'];
@@ -35,14 +35,22 @@ $width = $_POST['width'];
 $qty = $_POST['qty'];
 $deckle =  $_POST['deckle'];
 $chop =  $_POST['chop'];
-$chopCrease = $_POST['chopCrease'];
-$deckleCrease = $_POST['deckleCrease'];
+$chopCrease1 = $_POST['chopCrease1'];
+$chopCrease2 = $_POST['chopCrease2'];
+$deckleCreaseL = $_POST['deckleCreaseL'];
+$deckleCreaseW = $_POST['deckleCreaseW'];
 $slit = $_POST['slit'];
 $finish =  $_POST['finish'];
 $grade =  $_POST['grade'];
 $image = $_POST['image'];
+$category = $_POST['category'];
+$cost = $_POST['cost'];
+$margin = $_POST['margin'];
+$boardQty = $_POST['boardQty'];
+$config = $_POST['config'];
 
-$carton->addJob($ref, $style, $height, $length, $width, $qty, $deckle, $chop, $chopCrease, $deckleCrease, $slit, $finish, $grade, $image, $initials);
+$carton->addJob($ref,$initials, $style, $height, $width, $qty, $deckle, $chop, $chopCrease1, $chopCrease2,$deckleCreaseL, $deckleCreaseW, $slit, $finish, $grade, $image, $category, $cost, 
+  $margin, $boardQty, $config, $length);
 header("location:jobSheet&ref=".$sku);
 
 };

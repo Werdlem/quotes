@@ -66,6 +66,14 @@ public function getCategories(){
   $stmt->execute();
   return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+public function getCartons(){
+  $pdo = Database::DB();
+  $stmt = $pdo->prepare('select *
+    from cartons
+    ');
+   $stmt->execute();
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 public function addStyle($style,$height,$width,$length,$breadth,$glueFlap,$trimWidth,$trimLength,$image){
   $pdo = Database::DB();
   $stmt = $pdo->prepare('insert into style
@@ -84,38 +92,37 @@ public function addStyle($style,$height,$width,$length,$breadth,$glueFlap,$trimW
 
 }
 
-public function addJob($ref, $style, $height, $length, $breadth, $qty, $deckle, $chop, $chopCrease, $deckleCrease, $slit, $finish, $grade, $image, $initials ){
+public function addJob($ref,$initials, $style, $height, $width, $qty, $deckle, $chop, $chopCrease1, $chopCrease2,$deckleCreaseL, $deckleCreaseW, $slit, $finish, $grade, $image, $category, $cost, 
+  $margin, $boardQty, $config, $length){
   $pdo = Database::DB();
   $stmt = $pdo->prepare('insert into cartons
-    (ref, style, height, length, breadth, qty, deckle, chop, chopCrease, deckleCrease, slit, finish, grade, image, initials)
-    values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+    (ref,initials, style, height,  width, qty, deckle, chop, chopCrease1, chopCrease2,deckleCreaseL, deckleCreaseW, slit, finish, grade, image, category, cost, margin, 
+  boardQty, config, length)
+    values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
   $stmt->bindvalue(1, $ref);
-  $stmt->bindvalue(2, $style);
-  $stmt->bindvalue(3, $height);
-  $stmt->bindvalue(4, $length);
-  $stmt->bindvalue(5, $breadth);
+  $stmt->bindvalue(2, $initials);
+  $stmt->bindvalue(3, $style);
+  $stmt->bindvalue(4, $height);
+  $stmt->bindvalue(5, $width);
   $stmt->bindvalue(6, $qty);
   $stmt->bindvalue(7, $deckle);
   $stmt->bindvalue(8, $chop);
-  $stmt->bindvalue(9, $chopCrease);
-  $stmt->bindvalue(10, $deckleCrease);
-  $stmt->bindvalue(11, $slit);
-  $stmt->bindvalue(12, $finish);
-  $stmt->bindvalue(13, $grade);
-  $stmt->bindvalue(14, $image);
-  $stmt->bindvalue(15, $initials);
+  $stmt->bindvalue(9, $chopCrease1);
+  $stmt->bindvalue(10, $chopCrease2);
+  $stmt->bindvalue(11, $deckleCreaseL);
+  $stmt->bindvalue(12, $deckleCreaseW);
+  $stmt->bindvalue(13, $slit);
+  $stmt->bindvalue(14, $finish);
+  $stmt->bindvalue(15, $grade);
+  $stmt->bindvalue(16, $image);
+  $stmt->bindvalue(17, $category);
+  $stmt->bindvalue(18, $cost);
+  $stmt->bindvalue(19, $margin);
+  $stmt->bindvalue(20, $boardQty);
+  $stmt->bindvalue(21, $config);
+  $stmt->bindvalue(22, $length);
   $stmt->execute();
 
 }
 
-public function getCarton($ref){
-  $pdo = Database::DB();
-  $stmt = $pdo->prepare('select *
-    from cartons
-    where 
-    ref = :stmt');
-  $stmt -> bindvalue(':stmt', $ref);
-  $stmt->execute();
-  return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
 }

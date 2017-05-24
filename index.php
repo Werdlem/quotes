@@ -1,217 +1,97 @@
 <?php
 include ('header.php')
 ?>
+<div class="container">
+<div class="options-container">
+<div class="options">
+
+<h3>Carton Select</h3>
+<p>Style: <select style="float: right; width: 174px; height: 26px;" ng-model="selectedStyle" ng-options="x.style for x in styles"></select></p>
+<p>Flute: <select style="float: right; width: 174px; height: 26px;" ng-model="selectedFlute" ng-options="x.flute for x in flutes" ng-init="selectedFlute = flutes[0]" ></select></p>
+<p>Grade: <select style="float: right; width: 174px; height: 26px;" ng-model="selectedGrade" ng-options="x.grade for x in grades" ng-init="selectedGrade = type[0]" ></select></p>
+<p>Liner: <select style="float: right; width: 174px; height: 26px;" ng-model="selectedLiner" ng-options="x.liner for x in liners" ng-init="selectedLiner = liner[0]" ></select></p>
+
+<h3>Carton Dimms</h3>
+<p>Length: <input type="text" ng-model="length"></p>
+<p>Width: <input type="text" ng-model="width"></p>
+<p>Height: <input type="text" ng-model="height"></p>
+<p>Finish: <select style="float: right; width: 174px; height: 26px;" ng-model="selectedFinish" ng-options="x.finish for x in finish" ng-init="selectedFinish = finish[0]" ></select></p>
+<p>Category: <select style="float: right; width: 174px; height: 26px;" ng-model="selectedCategory" ng-options="x.category for x in category" ng-init="selectedCategory = category[0]" ></select></p>
+<p>Qty: <input type="text" name="qty" ng-model="qty"></p>
+
+<h3>Costing</h3>
+<p>£ per SqM: <input type="text" ng-model="cost"></p>
+ <p>Labour: <input type="text" ng-model="hours" placeholder="hours"></p>
+<p>Margin: <select style="float: right; width: 174px; height: 26px;" ng-model="selectedMargin" ng-options="x.margin for x in margin" ng-init="selectMargin = margin[0]" ></select></p>
+<p>Delivery: <input type="text" ng-model="delivery"></p>
+</div>
+</div>
 
 <style>
- .jobSheet{
-    display: none;
+
+.visible{
+	border: 1px solid #99ccff;
+}
+.invisible{
+	display: none;
 }
 
 </style>
 
- <div class="panel-wrapper" style="">
-     <h2>Step 1</h2>
-     <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3>Select Style</h3></div>
-            <div class="panel-footer">
-                <select ng-model="selectedStyle" ng-options="x.style for x in styles"></select>
-                <img ng-src="{{selectedStyle.image}}">
-            </div>
-        </div>
+<div class="results">
+<h3>Style</h3>
+<p><img ng-if="selectedStyle.image !==null" ng-src="{{selectedStyle.image}}"></p>
+<p><img ng-src="{{selectedFlute.image}}"></p>
+<h3>Material Specs</h3>
+<p><span ng-if="cartonGrade() !==null"><strong>Board Grade:</strong> {{cartonGrade()}}</span></p>
+<p><span ng-if="sheetBoardSize() !==null"><strong>Blank Size:</strong> {{boardDeckle()}} x {{boardChop()}}</span></p>
+<p><span ng-if="boardDeckle() !==null"><strong>Width:</strong> {{boardDeckle()}}</span></p>
+<p><span ng-if="boardChop() !==null"><strong>Length:</strong> {{boardChop()}}</span></p>
 
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3>Select Flute</h3></div>
-                <div class="panel-footer">
-                    <select ng-model="selectedFlute" ng-options="x.flute for x in flutes" ng-init="selectedFlute = flutes[0]" ></select>
-                    <img ng-src="{{selectedFlute.image}}">
-                </div>
-            </div>
+<h3>Production Specs</h3>
 
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3>Select Grade</h3></div>
-                    <div class="panel-footer">
-                        <select ng-model="selectedGrade" ng-options="x.grade for x in grades" ng-init="selectedGrade = type[0]" ></select>
-                    </div>
-                </div>
-                <div class="panel panel-primary" >
-                    <div class="panel-heading">          
-                        <h3>Select Liner</h3></div>
-                        <div class="panel-footer">
-                            <select ng-model="selectedLiner" ng-options="x.liner for x in liners" ng-init="selectedLiner = liner[0]" ></select>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="panel-wrapper">
-                  <div class="dimms">
-                      <h2>Step 2</h2>
-                      <div class="panel panel-primary">
-                        <div class="panel-heading">          
-                            <h2>Carton Dimms</h2>
-                        </div>
-                        <div class="panel-footer">
-                            <p>Length: <input type="text" ng-model="length"></p>
-
-                            <p>Width: <input type="text" ng-model="width"></p>
-
-                            <p>Height: <input type="text" ng-model="height"></p>
-                            <p>Finish: <select style="float: right; width: 174px; height: 26px;" ng-model="selectedFinish" ng-options="x.finish for x in finish" ng-init="selectedFinish = finish[0]" ></select></p>
-                            <p>Category: <select style="float: right; width: 174px; height: 26px;" ng-model="selectedCategory" ng-options="x.category for x in category" ng-init="selectedCategory = category[0]" ></select></p>
-
-                            <p>Qty: <input type="text" name="qty" ng-model="qty"></p>
-                        </div>
-                    </div>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">       
-                            <h2>Costing</h2></div>
-                            <div class="panel-footer">
-                                <p>£ per SqM: <input type="text" ng-model="cost"></p>
-                                <p>Labour: <input type="text" ng-model="hours" placeholder="hours"></p>
-                                <p>Margin: <select style="float: right; width: 174px; height: 26px;" ng-model="selectMargin" ng-options="x.amt for x in margin" ng-init="selectMargin = margin[0]" ></select></p>
-                                <p>Delivery: <input type="text" ng-model="delivery"></p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <button ng-click="printSheet('jobSheet');">Print Job Sheet</button>     
-                </form>
-
-                <div id="summary" style="float: left; width: 900px">
-                 
-                 <form method="post" action="addJob.php">
-                 <h3 style="text-decoration: underline;">Summary</h3>
-                    <p>
-                        <span><h3>Style: {{selectedStyle.style}} </h3></span>
-                        <span><h3>Chop Crease 1: {{calcChopCrease1()}}</h3></span>
-                        <span><h3>Chop Crease 2: {{calcChopCrease2()}}</h3></span>
-
-                                            
-                        <!--SUMMARY OF CARTON SPEC-->
-                        <h3>Grade: {{selectedFlute.flute
-                        }}{{selectedGrade.grade}}{{selectedLiner.liner}}</h3>
-                       
-
-                        <!--calculation for the sheet board size Height + Base X l * 2 + b * 2 + 25 -->
-                        <h3>Blank Size: <span ng-if="sheetBoardSize() !==null">{{boardDeckle()}} x {{boardChop()}}</span></h3>
-
-                        <!--SQUARE M PER CARTON-->
-                        <h3>Square M per box: {{calcSqMperBox() | number:3}}</h3>
-
-                        <!--CALCULATE THE TOTAL SQUARE M OF BOARD REQUIRED-->
-                        <h3>Total Square M:
-                            <span ng-if="calcSqMperBoxQty() !== null">{{calcSqMperBoxQty() | number : 3}}</span>
-                            <span ng-if="calcSqMperBoxQty() === null">Can't do that yet</span>
-                        </h3>
-                        <h3>Cost: <span>{{calculateCost() | currency: '£' }}</span></h3>
-                        <h3>Margin: {{calculateMargin() | currency: '£'}}</h3>
-                        <h3>Margin per box: {{calculateMargin() /(qty) | currency: '£'}}</h3>
-                        <h3>Total: {{calculateCost() + calculateMargin() | currency: '£' }}</h3>
-                                                <!--Hidden fields for page Posting-->
-                        <input type="hidden" name="length" value="{{length}}">
-                        <input type="hidden" name="width" value="{{width}}">
-                        <input type="hidden" name="height" value="{{height}}">
-                        <input type="hidden" name="style" value="{{selectedStyle.name}}">
-                        <input type="hidden" name="qty" value="{{qty}}">
-                         <input type="hidden" name="deckle" value="{{boardDeckle()}}">
-                        <input type="hidden" name="chop" value="{{boardChop()}}">
-                        <input type="hidden" name="chopCrease" value="{{boardLength() + 55}}">
-                        <input type="hidden" name="deckleCrease" value="15">
-                        <input type="hidden" name="slit" value="15">
-                         <input type="hidden" name="finish" value="{{selectedFinish.finish}}">
-                        <input type="hidden" name="grade" value="{{selectedFlute.type}}{{selectedGrade.type}}{{selectedLiner.grade}}">
-                        <input type="hidden" name="image" value="{{selectedStyle.image}}">
-                        
-                        <br/>
-                    </p>
-                </div>
-                              <button type="submit">Save Job</button> 
-            </form>
-            
-        </div>
-
-
-        <!--job sheet record-->
-
-        <div class="jobSheet" >
-            <div id="jobSheet">
-             <h3 style="text-decoration: underline;">Job Sheet</h3>
-
-<style>
-@page{
-    size: landscape;
-
-}
-
-table{
-  width: 70%; 
-  float: right;
-border-collapse: collapse;
-}
-table,th,td{
-    border: 1px solid black;
-    
-}
-
-th{
-    
-    text-align: right;
-    font-size: 14px;
-   
-}
-td{
-    
-    text-align: left;
-    font-size: 14px;
-  
-}
-</style>
-
-<div class="jobSheet">
-<div>
-
-    <table>
-
-        <tr>
-        <th>Name:</th>  <td>{name}</td>
-            <th>Sheet Board Size:</th>  <td>{{boardWidth()}} x {{boardLength()}}</td>
-            <th>Deckle:</th>    <td>{{boardWidth()}}</td>
-            <th>Chop Crease:</th>   <td>{{boardLength() + 55}}</td>
-
-
-            </tr>
-            
-            <tr>
-        <th>Style:</th> <td>{{selectedStyle.name}}</td>
-        <th>Grade:</th> <td>{{selectedFlute.type}}{{selectedGrade.type}}{{selectedLiner.grade}}</td>
-        <th>Chop:</th>  <td>{{boardLength()}}</td>
-        <th>Deckle Crease</th>  <td>{deckle crease}</td>
-        
-        </tr>
-        
-        <tr>
-        <th>Internal Dimms:</th>    <td>{{length}}x{{breadth}}x{{height}}</td>
-            <th>Flute:</th> <td>{{selectedFlute.type}}</td>
-            <th></th>   <td></td>
-            <th>Slit:</th>  <td>{slit}</td>
-        </tr>
-
-        <tr>
-        <th>Finish:</th><td>{{selectedFinish.finish}}</td>
-        <th>Quantity:</th><td>{{qty}}</td>
-        </tr>
-        </table>
-         <p><img src="/css/images/dam.png" style=" overflow: auto;"></p>
-         </div>
-        <img ng-src="{{selectedStyle.image}}">
+<p><span ng-if="calcChopCrease1() !==null"><strong>Chop Crease 1:</strong> {{calcChopCrease1()}}</span></p>
+<p><span ng-if="calcChopCrease1() !==null"><strong>Chop Crease 2:</strong> {{calcChopCrease2()}}</span></p>
+<p><span ng-if="glueFlap() !==null"><strong>Deckle Glue Flap:</strong> {{glueFlap()}}</span></p>
+<p><span ng-if="calcDeckleLength() !==null"><strong>Deckle Crease Length (L):</strong> {{calcDeckleLength()}}</span></p>
+<p><span ng-if="calcDeckleWidth() !==null"><strong>Deckle Crease Breadth (B):</strong> {{calcDeckleWidth()}}</span></p>
+<p><span ng-if="calQtyReq() !==null"><strong>Qty of Sheets:</strong> {{calQtyReq()}}</span></p>
+<p><span ng-if="setupConfig() !==null"><strong>Setup Configuration:</strong> {{setupConfig()}}</span></p>
+<h3>Costing Specs</h3>
+<p><span ng-if="calcSqMperBox() !==null"><strong> Square M per box: </strong> {{calcSqMperBox() | number:3}}</span></p>
+<p><span ng-if="calcSqMperBoxQty() !== null"><strong>Total Square M: </strong> {{calcSqMperBoxQty() | number : 3}}</span></p>
+<p><span ng-if="calculateCost() !==null"><strong>Cost:</strong> {{calculateCost() | currency: '£' }}</span></p>
+<p><span ng-if="calculateMargin() !==null"><strong>Margin:</strong> {{calculateMargin() | currency: '£'}}</span></p>
+<p><span ng-if="calculateMargin() !==null"><strong>Margin per box:</strong> {{calculateMargin() /(qty) | currency: '£'}}</span></p>
+<p><span ng-if="calculateTotal() !==null"><strong>Total:</strong> {{calculateTotal() | currency: '£' }}</span></p>
 
 </div>
-<script src="scripts\myApp.js"></script>
-                             </div>
-                         </body>
+</div>
+<br/><br/>
+<form method="POST" action="addJob.php">
+<!--Hidden fields for page Posting-->
+                        <input type="Hidden" name="length" value="{{length}}">
+                        <input type="Hidden" name="width" value="{{width}}">
+                        <input type="Hidden" name="height" value="{{height}}">
+                        <input type="Hidden" name="style" value="{{selectedStyle.style}}">
+                        <input type="Hidden" name="qty" value="{{qty}}">
+                         <input type="Hidden" name="deckle" value="{{boardDeckle()}}">
+                        <input type="Hidden" name="chop" value="{{boardChop()}}">
+                        <input type="Hidden" name="chopCrease1" value="{{calcChopCrease1()}}">
+                        <input type="Hidden" name="chopCrease2" value="{{calcChopCrease2()}}">
+                        <input type="Hidden" name="deckleCreaseL" value="{{calcDeckleLength()}}">
+                         <input type="Hidden" name="deckleCreaseW" value="{{calcDeckleWidth()}}">
+                        <input type="Hidden" name="slit" value="15">
+                         <input type="Hidden" name="finish" value="{{selectedFinish.finish}}">
+                        <input type="Hidden" name="grade" value="{{cartonGrade()}}">
+                        <input type="Hidden" name="image" value="{{selectedStyle.image}}">
+                        <input type="Hidden" name="cost" value="{{cost | currency: '£'}}">
+                        <input type="Hidden" name="margin" value="{{selectedMargin.margin}}">
+                         <input type="Hidden" name="category" value="{{selectedCategory.category}}">
+                          <input type="Hidden" name="boardQty" value="{{calQtyReq()}}">
+                          <input type="Hidden" name="config" value="{{setupConfig()}}">
+                          <button type="submit"> Add job</button>
+                          </form>
 
-                         </html>
+    <!--end-->
+<script src="scripts\myApp.js"></script>

@@ -44,17 +44,19 @@ app.controller('styleController', function($scope, $http) {
     
         // Calculate the deckle width
        $scope.boardDeckle = function(){
-    	try{
-    		return ($scope.selectedStyle.breadth * $scope.width * 2 +(+$scope.height) + (+$scope.selectedCategory.trimWidth) + (+$scope.selectedFlute.width))       
-    	}
-    	catch(x){}
+    	var res =($scope.selectedStyle.breadth * $scope.width * 2 +(+$scope.height) + (+$scope.selectedCategory.trimWidth) + (+$scope.selectedFlute.width));      
+      if(isNaN(res)){
+        return null;
+      }
+      return res;
     };
         // calculate the chop length
     $scope.boardChop = function(){
-    	try{
-    		return (($scope.selectedStyle.length * $scope.length )+($scope.selectedStyle.width * $scope.width) + (+$scope.selectedCategory.glueFlap) + (+$scope.selectedCategory.trimLength))
-    	}
-    	catch(x){}
+    	var res =(($scope.selectedStyle.length * $scope.length )+($scope.selectedStyle.width * $scope.width) + (+$scope.selectedCategory.glueFlap) + (+$scope.selectedCategory.trimLength));
+    	if (isNaN(res)){
+        return null;
+      }
+      return res;
     };
         // calculate the square Meter per carton
     $scope.calcSqMperBox = function(){
@@ -84,14 +86,64 @@ app.controller('styleController', function($scope, $http) {
 
     $scope.calcChopCrease2 = function(){
       try{
-        return($scope.calcChopCrease1() + (+$scope.height)+(+$scope.selectedFlute.width / 2))
+        return(($scope.selectedFlute.width *2) +(+$scope.height))
       }
       catch(x){}
     };
 
-    
+    $scope.glueFlap = function(){
+      var res = $scope.selectedCategory.glueFlap;
+        if(isNaN(res)){
+          return null;
+        }
+        return res + ' (Crease 1)';
+    };
+    $scope.calcDeckleLength = function(){
+      var res = (($scope.selectedFlute.width * 1 ) + (+$scope.length));
+       if (isNaN(res)){
+        return null;
+       }
+       return res;
+     };
+     $scope.calcDeckleWidth = function(){
+      var res = (($scope.selectedFlute.width * 1 ) + (+$scope.height));
+      if(isNaN(res)){
+        return null;
+      }
+      return res;
+      };
 
-        // END
+      $scope.calcDeckleLength = function(){
+      var res = (($scope.selectedFlute.width * 1 ) + (+$scope.length));
+       if (isNaN(res)){
+        return null;
+       }
+       return res;
+     };
+
+     $scope.calQtyReq = function(){
+      var res = $scope.boardChop();
+      if ($scope.boardChop() > 2000){
+        return $scope.qty * 2;      
+      }
+      return $scope.qty;
+     }
+
+     $scope.setupConfig = function(){
+     var res = $scope.boardChop();
+      if ($scope.boardChop() > 2000){
+       var length = $scope.calcDeckleLength();
+       var width = $scope.calcDeckleWidth();
+       return ("L x B");
+      }
+
+      var length = $scope.calcDeckleLength();
+       var width = $scope.calcDeckleWidth();
+       return ("L x B x L x B");
+     }
+
+      
+              // END
 
           // Calculate the sheetboard blank size
     $scope.sheetBoardSize = function(){
@@ -180,6 +232,13 @@ app.controller('styleController', function($scope, $http) {
       url: './jsonData/category.json.php'
     }).then(function(response){
       $scope.category=response.data;
+    });
+
+    $http({
+      method: 'GET',
+      url: './jsonData/cartons.json.php'
+    }).then(function(response){
+      $scope.cartons=response.data;
     });
 
 });
