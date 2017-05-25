@@ -21,7 +21,7 @@ include ('header.php')
 
 <h3>Costing</h3>
 <p>£ per SqM: <input type="text" ng-model="cost"></p>
- <p>Labour: <input type="text"  value="{{qty / selectedCategory.qtyPerHour}}"></p>
+ <p>Labour: <input ng-if="calcTime() !== null" disabled value="{{calcTime() | number:2}}"></p>
 <p>Margin: <select style="float: right; width: 174px; height: 26px;" ng-model="selectedMargin" ng-options="x.margin for x in margin" ng-init="selectMargin = margin[0]" ></select></p>
 <p>Delivery: <input type="text" ng-model="delivery"></p>
 </div>

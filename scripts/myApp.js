@@ -142,6 +142,15 @@ app.controller('styleController', function($scope, $http) {
        return ("L x B x L x B");
      }
 
+     //Calculate internal Dimms
+     $scope.internalDimms = function(){
+      var res = $scope.selectedCarton.length + "x" + $scope.selectedCarton.width + "x" + $scope.selectedCarton.height;
+      if (isNaN(res)){
+        return null;
+      }
+      return res;
+     }
+
       
               // END
 
@@ -156,7 +165,7 @@ app.controller('styleController', function($scope, $http) {
 
         // calculate the cost of carton based on carton variables
     $scope.calculateCost = function(){
-    	var res =(($scope.calcSqMperBoxQty() * $scope.cost + (+$scope.selectedFinish.rate * ($scope.height * 0.04) * $scope.qty) + ($scope.hours * $scope.labour)));
+    	var res =(($scope.calcSqMperBoxQty() * $scope.cost + (+$scope.selectedFinish.rate * ($scope.height * 0.04) * $scope.qty) + ($scope.calcTime() * $scope.labour)));
           if(isNaN(res)){
             return null;
           }
@@ -173,6 +182,14 @@ app.controller('styleController', function($scope, $http) {
 
      $scope.calculateTotal = function(){
       var res = $scope.calculateCost() + $scope.calculateMargin();
+      if(isNaN(res)){
+        return null;
+      }
+      return res;
+    };
+
+    $scope.calcTime = function(){
+      var res = ($scope.qty / $scope.selectedCategory.qtyPerHour);
       if(isNaN(res)){
         return null;
       }
