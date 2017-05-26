@@ -32,7 +32,9 @@ app.controller('styleController', function($scope, $http) {
      	margin: 1
      }];
 
-    $scope.labour = 8;
+    $scope.labour = 7.5;
+    $scope.date = new Date();
+    $scope.delivery = .40;
 
     //Carton Grade Specs
 
@@ -44,7 +46,7 @@ app.controller('styleController', function($scope, $http) {
     
         // Calculate the deckle width
        $scope.boardDeckle = function(){
-    	var res =($scope.selectedStyle.breadth * $scope.width * 2 +(+$scope.height) + (+$scope.selectedCategory.trimWidth) + (+$scope.selectedFlute.width));      
+    	var res =($scope.width * $scope.selectedStyle.breadth * 2 +(+$scope.height) + (+$scope.selectedCategory.trimWidth) + (+$scope.selectedFlute.width));      
       if(isNaN(res)){
         return null;
       }
@@ -181,7 +183,7 @@ app.controller('styleController', function($scope, $http) {
     };
 
      $scope.calculateTotal = function(){
-      var res = $scope.calculateCost() + $scope.calculateMargin();
+      var res = $scope.calculateCost() + $scope.calculateMargin()+ $scope.calcDelivery();
       if(isNaN(res)){
         return null;
       }
@@ -195,6 +197,22 @@ app.controller('styleController', function($scope, $http) {
       }
       return res;
     };
+
+    $scope.calcLabour = function(){
+      var res = $scope.labour * $scope.calcTime();
+      if(isNaN(res)){
+        return res;
+      }
+      return res;
+    }
+
+    $scope.calcDelivery = function(){
+      var res = $scope.delivery * $scope.miles;
+      if(isNaN(res)){
+        return null;
+      }
+      return res;
+    }
 
     
     $scope.printSheet = function(jobSheet) {

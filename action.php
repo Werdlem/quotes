@@ -39,7 +39,7 @@ $chopCrease1 = $_POST['chopCrease1'];
 $chopCrease2 = $_POST['chopCrease2'];
 $deckleCreaseL = $_POST['deckleCreaseL'];
 $deckleCreaseW = $_POST['deckleCreaseW'];
-$slit = $_POST['slit'];
+$glueFlap = $_POST['glueFlap'];
 $finish =  $_POST['finish'];
 $grade =  $_POST['grade'];
 $image = $_POST['image'];
@@ -49,8 +49,8 @@ $margin = $_POST['margin'];
 $boardQty = $_POST['boardQty'];
 $config = $_POST['config'];
 
-$carton->addJob($ref,$initials, $style, $height, $width, $qty, $deckle, $chop, $chopCrease1, $chopCrease2,$deckleCreaseL, $deckleCreaseW, $slit, $finish, $grade, $image, $category, $cost, 
+$carton->addJob($ref,$initials, $style, $height, $width, $qty, $deckle, $chop, $chopCrease1, $chopCrease2,$deckleCreaseL, $deckleCreaseW, $glueFlap, $finish, $grade, $image, $category, $cost, 
   $margin, $boardQty, $config, $length);
-header("location:jobSheet&ref=".$sku);
+header("location:jobSheet");
 
 };

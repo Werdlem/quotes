@@ -1,3 +1,27 @@
+<style>
+
+.visible{
+    border: 1px solid #99ccff;
+}
+.invisible{
+    display: none;
+}
+
+#material{
+    width: auto;
+    float: left;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+h3{
+    text-decoration: underline;
+}
+input{
+    float: right;
+}
+</style>
 <?php
 include ('header.php')
 ?>
@@ -21,33 +45,27 @@ include ('header.php')
 
 <h3>Costing</h3>
 <p>£ per SqM: <input type="text" ng-model="cost"></p>
- <p>Labour: <input ng-if="calcTime() !== null" disabled value="{{calcTime() | number:2}}"></p>
+ <p>Labour: <input ng-if="calcTime() !== null" disabled value="{{calcTime() | number:1}} Hours"></p>
 <p>Margin: <select style="float: right; width: 174px; height: 26px;" ng-model="selectedMargin" ng-options="x.margin for x in margin" ng-init="selectMargin = margin[0]" ></select></p>
-<p>Delivery: <input type="text" ng-model="delivery"></p>
+<p>Delivery: <input type="text" ng-model="miles"></p>
 </div>
 </div>
 
-<style>
 
-.visible{
-	border: 1px solid #99ccff;
-}
-.invisible{
-	display: none;
-}
-
-</style>
-
+<form method="POST" action="addJob.php">
+ 
 <div class="results">
 <h3>Style</h3>
 <p><img ng-if="selectedStyle.image !==null" ng-src="{{selectedStyle.image}}"></p>
 <p><img ng-src="{{selectedFlute.image}}"></p>
+<div id="material">
 <h3>Material Specs</h3>
 <p><span ng-if="cartonGrade() !==null"><strong>Board Grade:</strong> {{cartonGrade()}}</span></p>
 <p><span ng-if="sheetBoardSize() !==null"><strong>Blank Size:</strong> {{boardDeckle()}} x {{boardChop()}}</span></p>
 <p><span ng-if="boardDeckle() !==null"><strong>Width:</strong> {{boardDeckle()}}</span></p>
 <p><span ng-if="boardChop() !==null"><strong>Length:</strong> {{boardChop()}}</span></p>
-
+</div>
+<div id="material">
 <h3>Production Specs</h3>
 
 <p><span ng-if="calcChopCrease1() !==null"><strong>Chop Crease 1:</strong> {{calcChopCrease1()}}</span></p>
@@ -57,18 +75,23 @@ include ('header.php')
 <p><span ng-if="calcDeckleWidth() !==null"><strong>Deckle Crease Breadth (B):</strong> {{calcDeckleWidth()}}</span></p>
 <p><span ng-if="calQtyReq() !==null"><strong>Qty of Sheets:</strong> {{calQtyReq()}}</span></p>
 <p><span ng-if="setupConfig() !==null"><strong>Setup Configuration:</strong> {{setupConfig()}}</span></p>
+</div>
+<div id="material">
 <h3>Costing Specs</h3>
 <p><span ng-if="calcSqMperBox() !==null"><strong> Square M per box: </strong> {{calcSqMperBox() | number:3}}</span></p>
 <p><span ng-if="calcSqMperBoxQty() !== null"><strong>Total Square M: </strong> {{calcSqMperBoxQty() | number : 3}}</span></p>
+<p><span ng-if="calcLabour() !==null"><strong>Labour:</strong> {{calcLabour() | currency: '£' }}</span></p>
 <p><span ng-if="calculateCost() !==null"><strong>Cost:</strong> {{calculateCost() | currency: '£' }}</span></p>
+<p><span ng-if="calcDelivery() !==null"><strong>Delivery:</strong> {{calcDelivery() | currency: '£' }}</span></p>
 <p><span ng-if="calculateMargin() !==null"><strong>Margin:</strong> {{calculateMargin() | currency: '£'}}</span></p>
 <p><span ng-if="calculateMargin() !==null"><strong>Margin per box:</strong> {{calculateMargin() /(qty) | currency: '£'}}</span></p>
 <p><span ng-if="calculateTotal() !==null"><strong>Total:</strong> {{calculateTotal() | currency: '£' }}</span></p>
-
+</div>
+<form method="POST" action="addJob.php">
+<p><button type="submit"> Add job</button>
 </div>
 </div>
 <br/><br/>
-<form method="POST" action="addJob.php">
 <!--Hidden fields for page Posting-->
                         <input type="Hidden" name="length" value="{{length}}">
                         <input type="Hidden" name="width" value="{{width}}">
@@ -81,7 +104,7 @@ include ('header.php')
                         <input type="Hidden" name="chopCrease2" value="{{calcChopCrease2()}}">
                         <input type="Hidden" name="deckleCreaseL" value="{{calcDeckleLength()}}">
                          <input type="Hidden" name="deckleCreaseW" value="{{calcDeckleWidth()}}">
-                        <input type="Hidden" name="slit" value="15">
+                        <input type="Hidden" name="glueFlap" value="{{selectedCategory.glueFlap}}">
                          <input type="Hidden" name="finish" value="{{selectedFinish.finish}}">
                         <input type="Hidden" name="grade" value="{{cartonGrade()}}">
                         <input type="Hidden" name="image" value="{{selectedStyle.image}}">
@@ -90,7 +113,7 @@ include ('header.php')
                          <input type="Hidden" name="category" value="{{selectedCategory.category}}">
                           <input type="Hidden" name="boardQty" value="{{calQtyReq()}}">
                           <input type="Hidden" name="config" value="{{setupConfig()}}">
-                          <button type="submit"> Add job</button>
+                         
                           </form>
 
     <!--end-->

@@ -92,11 +92,11 @@ public function addStyle($style,$height,$width,$length,$breadth,$glueFlap,$trimW
 
 }
 
-public function addJob($ref,$initials, $style, $height, $width, $qty, $deckle, $chop, $chopCrease1, $chopCrease2,$deckleCreaseL, $deckleCreaseW, $slit, $finish, $grade, $image, $category, $cost, 
+public function addJob($ref,$initials, $style, $height, $width, $qty, $deckle, $chop, $chopCrease1, $chopCrease2,$deckleCreaseL, $deckleCreaseW, $glueFlap, $finish, $grade, $image, $category, $cost, 
   $margin, $boardQty, $config, $length){
   $pdo = Database::DB();
   $stmt = $pdo->prepare('insert into cartons
-    (ref,initials, style, height,  width, qty, deckle, chop, chopCrease1, chopCrease2,deckleCreaseL, deckleCreaseW, slit, finish, grade, image, category, cost, margin, 
+    (ref,initials, style, height,  width, qty, deckle, chop, chopCrease1, chopCrease2,deckleCreaseL, deckleCreaseW, glueFlap, finish, grade, image, category, cost, margin, 
   boardQty, config, length)
     values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
   $stmt->bindvalue(1, $ref);
@@ -111,7 +111,7 @@ public function addJob($ref,$initials, $style, $height, $width, $qty, $deckle, $
   $stmt->bindvalue(10, $chopCrease2);
   $stmt->bindvalue(11, $deckleCreaseL);
   $stmt->bindvalue(12, $deckleCreaseW);
-  $stmt->bindvalue(13, $slit);
+  $stmt->bindvalue(13, $glueFlap);
   $stmt->bindvalue(14, $finish);
   $stmt->bindvalue(15, $grade);
   $stmt->bindvalue(16, $image);
