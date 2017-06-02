@@ -11,8 +11,3 @@
 
 <body ng-controller="styleController as style">
 <div class="container">
-
-<ul>
-<li><a href="index.php">Index</a></li>
-<li><a href="jobSheet.php">Job Sheet</a></li>
-</ul>
